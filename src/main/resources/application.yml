@@ -3,7 +3,7 @@ server:
 spring:
   application.name: spring-security-keycloak
 keycloak:
-  auth-server-url: http://localhost:8080/auth
+  auth-server-url: http://keycloak:8080/auth
   realm: my_realm
   resource: my_client
   public-client: true

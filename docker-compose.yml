@@ -1,17 +1,20 @@
 version: "3.8"
 
 services:
-  #service:
-  #  container_name: service
-  #  image: service
-  #  ports:
-  #    - "8082:8082"
-  #  build: .
-  #  working_dir: /app
-  #  volumes:
-  #    - ./:/app
-  #  depends_on:
-  #    - keycloak
+  service:
+    container_name: service
+    image: service
+    ports:
+      - "8082:8082"
+    build: .
+    #environment:
+    #  KEYCLOAK_URI: http://keycloak:8080/auth
+    #  REALM: my_realm
+    working_dir: /app
+    volumes:
+      - ./:/app
+    depends_on:
+      - keycloak
 
   postgres:
     container_name: postgres
@@ -20,6 +23,8 @@ services:
       POSTGRES_USER: keycloak_user
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: keycloak_db
+    volumes:
+      - keycloak_postgresql:/var/lib/postgresql/data
     ports:
       - "5431:5431"
     restart: unless-stopped
@@ -41,3 +46,5 @@ services:
       - postgres
     links:
       - "postgres:postgres"
+volumes:
+  keycloak_postgresql:
